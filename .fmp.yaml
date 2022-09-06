@@ -1,0 +1,11 @@
+org_name: XTC
+module_name: VRLobby
+generate:
+  active: true
+  database_driver: none
+  debug: false
+  unity_solution: true
+publish:
+  active: true
+  environment: develop
+  repository: grpc://nps.meex.cloud:28000
