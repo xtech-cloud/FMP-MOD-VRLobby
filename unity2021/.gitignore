@@ -1,0 +1,19 @@
+
+/_dist_/
+/_build_/
+/VRLobby/Assets/TextMesh Pro/
+/VRLobby/Assets/TextMesh Pro.meta
+/VRLobby/Assets/Plugins/
+/VRLobby/Assets/Plugins.meta
+/VRLobby/Assets/3rd/
+/VRLobby/Assets/3rd.meta
+/VRLobby/Library/
+/VRLobby/obj/
+/VRLobby/Logs/
+/VRLobby/Temp/
+/VRLobby/UserSettings/
+/VRLobby/*.sln
+/VRLobby/*.csproj
+/VRLobby/.vsconfig
+/VRLobby/.vs/
+/.UNITY_HOME.env
