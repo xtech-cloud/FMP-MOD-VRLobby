@@ -19,80 +19,37 @@
         space: 两张图片中心点的间隔
       -->
       <BannerMenu distance="2" space="300">
+        <!-- 标题
+        -->
         <Title image="title.png">
           <Anchor marginV="475" width="464" height="122"/>
         </Title>
-        <!--入口列表
-              Entry.image: 条幅图片
-              Entry.Subject: 入口触发后发布的消息
-            -->
-        <BannerEntries>
-          <BannerEntry>
-            <Banner image="1.png">
-              <Anchor marginH="-600" width="280" height="680"/>
-            </Banner>
-            <Subjects>
-              <Subject message="/XTC/VRLobby/Close">
-                <Parameters>
-                  <Parameter key="uid" value="default" type="string"/>
-                  <Parameter key="delay" value="0" type="float"/>
-                </Parameters>
-              </Subject>
-            </Subjects>
-          </BannerEntry>
-          <BannerEntry>
-            <Banner image="2.png">
-              <Anchor marginH="-300" width="280" height="680"/>
-            </Banner>
-            <Subjects>
-              <Subject message="/XTC/VRLobby/Close">
-                <Parameters>
-                  <Parameter key="uid" value="default" type="string"/>
-                  <Parameter key="delay" value="0" type="float"/>
-                </Parameters>
-              </Subject>
-            </Subjects>
-          </BannerEntry>
-          <BannerEntry>
-            <Banner image="3.png">
-              <Anchor marginH="0" width="280" height="680"/>
-            </Banner>
-            <Subjects>
-              <Subject message="/XTC/VRLobby/Close">
-                <Parameters>
-                  <Parameter key="uid" value="default" type="string"/>
-                  <Parameter key="delay" value="0" type="float"/>
-                </Parameters>
-              </Subject>
-            </Subjects>
-          </BannerEntry>
-          <BannerEntry>
-            <Banner image="4.png">
-              <Anchor marginH="300" width="280" height="680"/>
-            </Banner>
-            <Subjects>
-              <Subject message="/XTC/VRLobby/Close">
-                <Parameters>
-                  <Parameter key="uid" value="default" type="string"/>
-                  <Parameter key="delay" value="0" type="float"/>
-                </Parameters>
-              </Subject>
-            </Subjects>
-          </BannerEntry>
-          <BannerEntry>
-            <Banner image="5.png">
-              <Anchor marginH="600" width="280" height="680"/>
-            </Banner>
-            <Subjects>
-              <Subject message="/XTC/VRLobby/Close">
-                <Parameters>
-                  <Parameter key="uid" value="default" type="string"/>
-                  <Parameter key="delay" value="0" type="float"/>
-                </Parameters>
-              </Subject>
-            </Subjects>
-          </BannerEntry>
-        </BannerEntries>
+        <!-- 条幅入口
+        -->
+        <BannerEntry>
+          <!-- 条幅
+            gazeImage: 凝视的进度图
+          -->
+          <Banner image="banner.png" gazeImage="banner_gaze.png">
+            <Anchor width="280" height="680"/>
+          </Banner>
+          <!-- 入口按钮
+            gazeImage: 凝视的进度图
+          -->
+          <Entry image="entry.png" gazeImage="entry_gaze.png">
+            <Anchor marginH="-35" marginV="-196" width="128" height="128"/>
+          </Entry>
+          <!-- 入口触发后的消息列表
+          -->
+          <Subjects>
+            <Subject message="/XTC/VRLobby/Hide">
+              <Parameters>
+                <Parameter key="uid" value="default" type="string"/>
+                <Parameter key="delay" value="0" type="float"/>
+              </Parameters>
+            </Subject>
+          </Subjects>
+        </BannerEntry>
       </BannerMenu>
     </Style>
   </Styles>

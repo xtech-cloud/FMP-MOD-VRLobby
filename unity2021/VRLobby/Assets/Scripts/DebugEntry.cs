@@ -55,6 +55,32 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
         }
 
         /// <summary>
+        /// 调试显示
+        /// </summary>
+        /// <param name="_uid">实例的uid</param>
+        /// <param name="_delay">延迟时间，单位秒</param>
+        public void __DebugShow(string _uid,  float _delay)
+        {
+            var data = new Dictionary<string, object>();
+            data["uid"] = _uid;
+            data["delay"] = _delay;
+            modelDummy_.Publish(MySubjectBase.Show, data);
+        }
+
+        /// <summary>
+        /// 调试隐藏
+        /// </summary>
+        /// <param name="_uid">实例的uid</param>
+        /// <param name="_delay">延迟时间，单位秒</param>
+        public void __DebugHide(string _uid,  float _delay)
+        {
+            var data = new Dictionary<string, object>();
+            data["uid"] = _uid;
+            data["delay"] = _delay;
+            modelDummy_.Publish(MySubjectBase.Hide, data);
+        }
+
+        /// <summary>
         /// 调试关闭
         /// </summary>
         /// <param name="_uid">实例的uid</param>

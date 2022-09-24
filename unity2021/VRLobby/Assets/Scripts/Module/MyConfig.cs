@@ -8,10 +8,19 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
     /// </summary>
     public class MyConfig : MyConfigBase
     {
+        public class GazeUiElement : UiElement
+        {
+            [XmlAttribute("gazeImage")]
+            public string gazeImage { get; set; }
+        }
+
+
         public class BannerEntry
         {
             [XmlElement("Banner")]
-            public UiElement banner { get; set; } = new UiElement();
+            public GazeUiElement banner { get; set; } = new GazeUiElement();
+            [XmlElement("Entry")]
+            public GazeUiElement entry { get; set; } = new GazeUiElement();
             [XmlArray("Subjects"), XmlArrayItem("Subject")]
             public Subject[] subjects { get; set; } = new Subject[0];
         }
@@ -19,7 +28,7 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
         public class BannerMenu
         {
             [XmlElement("Title")]
-            public UiElement title { get; set; }
+            public UiElement title { get; set; } = new UiElement();
 
             [XmlAttribute("distance")]
             public float distance { get; set; } = 2;
@@ -27,8 +36,8 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
             [XmlAttribute("space")]
             public float space { get; set; } = 20;
 
-            [XmlArray("BannerEntries"), XmlArrayItem("BannerEntry")]
-            public BannerEntry[] entries { get; set; } = new BannerEntry[0];
+            [XmlElement("BannerEntry")]
+            public BannerEntry bannerEntry { get; set; } = new BannerEntry();
         }
 
         public class Style
