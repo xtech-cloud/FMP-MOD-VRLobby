@@ -7,5 +7,5 @@ generate:
   unity_solution: true
 publish:
   active: true
-  environment: develop
-  repository: grpc://nps.meex.cloud:28000
+  environment: develop 
+  repository: grpcs://api.xtech.cloud:29000

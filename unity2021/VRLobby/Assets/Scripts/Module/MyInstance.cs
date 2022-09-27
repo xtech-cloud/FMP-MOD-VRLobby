@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using LibMVCS = XTC.FMP.LIB.MVCS;
 using XTC.FMP.MOD.VRLobby.LIB.Proto;
 using XTC.FMP.MOD.VRLobby.LIB.MVCS;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace XTC.FMP.MOD.VRLobby.LIB.Unity
 {
@@ -15,7 +17,10 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
     /// </summary>
     public class MyInstance : MyInstanceBase
     {
+        private MyContent activeContent_;
+        private MyCatalog.Section activeSection_;
         private List<Transform> enterButtons = new List<Transform>();
+
         public MyInstance(string _uid, string _style, MyConfig _config, MyCatalog _catalog, LibMVCS.Logger _logger, Dictionary<string, LibMVCS.Any> _settings, MyEntryBase _entry, MonoBehaviour _mono, GameObject _rootAttachments)
             : base(_uid, _style, _config, _catalog, _logger, _settings, _entry, _mono, _rootAttachments)
         {
@@ -57,23 +62,6 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
             rootUI.gameObject.SetActive(false);
         }
 
-        private void publishSubject(MyConfig.Subject _subject)
-        {
-            var dummyModel = (entry_ as MyEntry).getDummyModel();
-            var data = new Dictionary<string, object>();
-            foreach (var parameter in _subject.parameters)
-            {
-                if (parameter.type.Equals("string"))
-                    data[parameter.key] = parameter.value;
-                else if (parameter.type.Equals("int"))
-                    data[parameter.key] = int.Parse(parameter.value);
-                else if (parameter.type.Equals("float"))
-                    data[parameter.key] = float.Parse(parameter.value);
-                else if (parameter.type.Equals("bool"))
-                    data[parameter.key] = bool.Parse(parameter.value);
-            }
-            dummyModel.Publish(_subject.message, data);
-        }
 
         private CounterSequence applyStyle()
         {
@@ -181,13 +169,92 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
 
                 tEntry.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    foreach (var subject in style_.bannerMenu.bannerEntry.subjects)
+                    activeSection_ = section;
+                    var content = activeSection_.contentS.First();
+                    loadContentFromAsset(content, (_bytes) =>
                     {
-                        publishSubject(subject);
-                    }
+                        try
+                        {
+                            activeContent_ = JsonConvert.DeserializeObject<MyContent>(System.Text.Encoding.UTF8.GetString(_bytes));
+                        }
+                        catch (System.Exception ex)
+                        {
+                            logger_.Exception(ex);
+                        }
+                        openResource();
+                    });
                 });
                 enterButtons.Add(tEntry);
             }
+        }
+
+        private void openResource()
+        {
+            if (null == activeContent_)
+            {
+                logger_.Error("None content is active"); ;
+                return;
+            }
+
+            logger_.Debug("active content is {0}/{1}", activeContent_.bundle, activeContent_.alias);
+            string downstream;
+            activeSection_.kvS.TryGetValue("downstream", out downstream);
+            if (string.IsNullOrWhiteSpace(downstream))
+            {
+                logger_.Error("downstream is null or empty"); ;
+                return;
+            }
+            logger_.Debug("downstream is {0}", downstream);
+
+            Dictionary<string, string> messageReplaces = new Dictionary<string, string>();
+            messageReplaces["{{downstream}}"] = downstream;
+
+            string resource_uri;
+            activeContent_.kvS.TryGetValue(downstream, out resource_uri);
+            if (string.IsNullOrWhiteSpace(resource_uri))
+            {
+                logger_.Error("resource_uri is null or empty"); ;
+                return;
+            }
+            logger_.Debug("resource_uri is {0}", resource_uri);
+
+            Dictionary<string, string> parameterReplaces = new Dictionary<string, string>();
+            messageReplaces["{{resource_uri}}"] = resource_uri;
+
+            foreach (var subject in style_.bannerMenu.bannerEntry.onSubjects)
+            {
+                publishSubject(subject, messageReplaces, parameterReplaces);
+            }
+        }
+
+        private void publishSubject(MyConfig.Subject _subject, Dictionary<string, string> _messageReplaces, Dictionary<string, string> _parameterReplaces)
+        {
+            var dummyModel = (entry_ as MyEntry).getDummyModel();
+            var data = new Dictionary<string, object>();
+            foreach (var parameter in _subject.parameters)
+            {
+                if (parameter.type.Equals("string"))
+                {
+                    string strValue = parameter.value;
+                    foreach (var pair in _parameterReplaces)
+                    {
+                        strValue = strValue.Replace(pair.Key, pair.Value);
+                    }
+                    data[parameter.key] = strValue;
+                }
+                else if (parameter.type.Equals("int"))
+                    data[parameter.key] = int.Parse(parameter.value);
+                else if (parameter.type.Equals("float"))
+                    data[parameter.key] = float.Parse(parameter.value);
+                else if (parameter.type.Equals("bool"))
+                    data[parameter.key] = bool.Parse(parameter.value);
+            }
+            string message = _subject.message;
+            foreach (var pair in _messageReplaces)
+            {
+                message = message.Replace(pair.Key, pair.Value);
+            }
+            dummyModel.Publish(message, data);
         }
     }
 }

@@ -8,4 +8,4 @@ generate:
 publish:
   active: true
   environment: product
-  repository: grpc://localhost:18000
+  repository: grpc://api.xtech.cloud:28000

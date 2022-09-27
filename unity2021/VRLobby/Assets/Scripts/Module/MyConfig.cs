@@ -21,8 +21,10 @@ namespace XTC.FMP.MOD.VRLobby.LIB.Unity
             public GazeUiElement banner { get; set; } = new GazeUiElement();
             [XmlElement("Entry")]
             public GazeUiElement entry { get; set; } = new GazeUiElement();
-            [XmlArray("Subjects"), XmlArrayItem("Subject")]
-            public Subject[] subjects { get; set; } = new Subject[0];
+            [XmlArray("OnSubjects"), XmlArrayItem("Subject")]
+            public Subject[] onSubjects { get; set; } = new Subject[0];
+            [XmlArray("OffSubjects"), XmlArrayItem("Subject")]
+            public Subject[] offSubjects { get; set; } = new Subject[0];
         }
 
         public class BannerMenu

@@ -3,55 +3,65 @@
             "name": "毒品认知",
             "path": "",
             "instanceS": ["default"],
-            "bodyS": [],
+            "contentS": [
+                "XTC.VRLobby/test1"
+            ],
             "kvS": {
                 "marginH": "-600",
                 "image": "1.png",
-                "asset": "xtc.antidrugpublicity.cognition.vsa"
+                "downstream": "VisualScripts"
             }
         },
         {
             "name": "个人危害",
             "path": "",
             "instanceS": ["default"],
-            "bodyS": [],
+            "contentS": [
+                "XTC.VRLobby/test2"
+            ],
             "kvS": {
                 "marginH": "-300",
                 "image": "2.png",
-                "asset": "xtc.antidrugpublicity.cognition.vsa"
+                "downstream": "VisualScripts"
             }
         },
         {
             "name": "家庭危害",
             "path": "",
             "instanceS": ["default"],
-            "bodyS": [],
+            "contentS": [
+                "XTC.VRLobby/test3"
+            ],
             "kvS": {
                 "marginH": "0",
                 "image": "3.png",
-                "asset": "xtc.antidrugpublicity.cognition.vsa"
+                "downstream": "VisualScripts"
             }
         },
         {
             "name": "社会危害",
             "path": "",
             "instanceS": ["default"],
-            "bodyS": [],
+            "contentS": [
+                "XTC.VRLobby/test4"
+            ],
             "kvS": {
                 "marginH": "300",
                 "image": "4.png",
-                "asset": "xtc.antidrugpublicity.cognition.vsa"
+                "downstream": "VisualScripts"
             }
         },
         {
             "name": "法律知识",
             "path": "",
             "instanceS": ["default"],
-            "bodyS": [],
+            "contentS": [
+                "XTC.VRLobby/test5"
+            ],
             "kvS": {
                 "marginH": "600",
                 "image": "5.png",
-                "asset": "xtc.antidrugpublicity.cognition.vsa"
+                "downstream": "VisualScripts"
             }
         }
     ]

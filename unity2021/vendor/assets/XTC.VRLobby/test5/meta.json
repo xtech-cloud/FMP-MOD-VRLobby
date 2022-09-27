@@ -1,0 +1,11 @@
+{
+    "bundle": "XTC.VRLobby",
+    "alias": "测试5",
+    "title": "测试5",
+    "topic": "",
+    "caption": "",
+    "description": "",
+    "kvS":{
+        "VisualScripts": "5.vsa"
+    }
+}
